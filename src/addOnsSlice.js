@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { incrementQuantity } from "./venueSlice";
 
 export const addOnsSlice = createSlice({
     name: "addons",
@@ -121,5 +122,25 @@ export const addOnsSlice = createSlice({
           ]
           
     ],
+    reducers: {
+        incrementAddOnQuantity: (state, action) => {
+            const item = state[action.payload];
 
+            if(item) {
+                item.quantity++;
+            }
+          },
+          decrementAddOnQuantity: (state, action) => {
+            const item = state[action.payload];
+
+            if(item && item.quantity>0) {
+                item.quantity--;
+            }
+          },
+    }
 });
+
+
+export const { incrementAddOnQuantity, decrementAddOnQuantity } = addOnsSlice.actions;
+
+export default addOnsSlice.reducer;
