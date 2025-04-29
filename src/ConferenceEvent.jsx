@@ -8,7 +8,8 @@ const ConferenceEvent = () => {
     const [showItems, setShowItems] = useState(false);
     const [numberOfPeople, setNumberOfPeople] = useState(1);
     const venueItems = useSelector((state) => state.venue);
-    const addonItems = useSelector((state) => state.addon);
+    const addonItems = useSelector((state) => state.addons);
+    const mealsItems = useSelector((state) => state.meals);
     const dispatch = useDispatch();
     const remainingAuditoriumQuantity = 3 - venueItems.find(item => item.name === "Auditorium Hall (Capacity:200)").quantity;
 
@@ -57,13 +58,13 @@ const ConferenceEvent = () => {
           venueItems.forEach((item) => {
             totalCost += item.cost * item.quantity;
           });
-        } else if (section === "addon") {
-            addonItems.reduce((totalCost, item) => totalCost + item.quantity *item.cost,0);
+        } else if (section === "addons") {
+            totalCost = addonItems.reduce((acc, item) => acc + item.quantity *item.cost,0);
         }
         return totalCost;
       };
     const venueTotalCost = calculateTotalCost("venue");
-    const avTotalCost = calculateTotalCost("addon");
+    const avTotalCost = calculateTotalCost("addons");
 
     const navigateToProducts = (idType) => {
         if (idType == '#venue' || idType == '#addons' || idType == '#meals') {
@@ -98,6 +99,9 @@ const ConferenceEvent = () => {
                                     <h1>Venue Room Selection</h1>
                                 </div>
                                 <div className="venue_selection">
+                                {console.log("Component rendered")}
+                                {console.log("venueItems count:", venueItems.length)}
+                                {console.table(venueItems)}
                                 {venueItems.map((item, index) => (
                                     <div className="venue_main" key={index}>
                                         <div className="img">
@@ -157,7 +161,9 @@ const ConferenceEvent = () => {
                                     <h1> Add-ons Selection</h1>
                                 </div>
                                 <div className="addons_selection">
-                                {console.log("Component rendered, addonItems count:", addonItems.length)}
+                                {console.log("Component rendered")}
+                                {console.log("addonItems count:", addonItems.length)}
+                                {console.table(addonItems)}
                                 {addonItems.map((item,index) => (
                                     
                                     <div className="av_data venue_main" key={index}>
@@ -183,7 +189,7 @@ const ConferenceEvent = () => {
                                     </div>
                                 ))}      
                                 </div>
-                                <div className="total_cost">Total Cost:</div>
+                                <div className="total_cost">Add-Ons Total Cost: ${avTotalCost}</div>
                             </div>
 
                             {/* Meal Section */}
@@ -196,7 +202,7 @@ const ConferenceEvent = () => {
                                 </div>
 
                                 <div className="input-container venue_selection">
-
+                                    <label htmlFor="numberOfPeople"><h3>Number of People:</h3></label>
                                 </div>
                                 <div className="meal_selection">
 

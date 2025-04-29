@@ -2,10 +2,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import venueReducer from './venueSlice';
 import addOnReducer from './addOnsSlice';
+import mealsReducer from './mealsSlice';
 
 export default configureStore({
   reducer: {
     venue: venueReducer,
-    addon: addOnReducer,
+    addons: addOnReducer,
+    meals: mealsReducer,
   },
 });
