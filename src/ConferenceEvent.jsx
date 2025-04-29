@@ -206,7 +206,7 @@ const ConferenceEvent = () => {
                         </div>
                     ) : (
                         <div className="total_amount_detail">
-                            <TotalCost totalCosts={totalCosts} handleClick={handleToggleItems} ItemsDisplay={() => <ItemsDisplay items={items} />} />
+                            <TotalCost totalCosts={avTotalCost} handleClick={handleToggleItems} ItemsDisplay={() => <ItemsDisplay items={items} />} />
                         </div>
                     )
                 }
